@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     stages {
+         stage ('SCM checkout') {
+
+            steps {
+                git 'https://github.com/niya26/Jenkins-test/'
+                }
+            }
         stage ('Compile Stage') {
 
             steps {
