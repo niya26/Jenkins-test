@@ -1,30 +1,43 @@
 pipeline {
         agent any
-   
+tools {
+maven 'MAVEN_HOME' 
+        jdk 'JAVA_HOME'
+
+}
+    
     stages {
-           
+            stage('check out') {
+                          steps {
+    git branch: 'master',url: 'https://github.com/niya26/Jenkins-test/'
+                          }
+                      }
         stage ('Compile Stage') {
 
             steps {
-                
-                    bat 'mvn clean compile'
-                           }
+                withMaven(maven : 'MAVEN_HOME') {
+                    sh 'mvn pom.xml clean compile'
+                }
+            }
         }
 
         stage ('Testing Stage') {
 
             steps {
-               
-                    bat 'mvn test'
-                           }
+                withMaven(maven : 'MAVEN_HOME') {
+                    sh 'mvn pom.xml test'
+                }
+            }
         }
 
 
         stage ('Deployment Stage') {
             steps {
-               
-                    bat 'mvn deploy'
-                    }
+                withMaven(maven : 'MAVEN_HOME') {
+                    sh 'mvn pom.xml deploy'
+                }
+            }
         }
     }
 }
+
