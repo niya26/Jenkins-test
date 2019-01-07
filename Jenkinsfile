@@ -1,15 +1,17 @@
 pipeline {
+        agent any
 tools {
-maven 'M3' 
-        jdk 'jdk8'
+maven 'MAVEN_HOME' 
+        jdk 'JAVA_HOME'
 
 }
-    stage('check out') {
+    
+    stages {
+            stage('check out') {
                           steps {
     git branch: 'master',url: 'https://github.com/niya26/Jenkins-test/'
                           }
                       }
-    stages {
         stage ('Compile Stage') {
 
             steps {
