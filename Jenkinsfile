@@ -15,28 +15,25 @@ maven 'MAVEN_HOME'
         stage ('Compile Stage') {
 
             steps {
-                withMaven(maven : 'MAVEN_HOME') {
-                    sh 'mvn -f amrld/pom.xml clean compile'
-                }
-            }
+                
+                    sh 'mvn clean compile'
+                           }
         }
 
         stage ('Testing Stage') {
 
             steps {
-                withMaven(maven : 'MAVEN_HOME') {
-                    sh 'mvn -f amrld/pom.xml test'
-                }
-            }
+               
+                    sh 'mvn test'
+                           }
         }
 
 
         stage ('Deployment Stage') {
             steps {
-                withMaven(maven : 'MAVEN_HOME') {
-                    sh 'mvn -f amrld/pom.xml deploy'
-                }
-            }
+               
+                    sh 'mvn deploy'
+                    }
         }
     }
 }
