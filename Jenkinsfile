@@ -1,36 +1,39 @@
 pipeline {
-    agent any
-
+tools {
+name: 'JAVA_HOME', type: 'jdk'
+name: 'MAVEN_HOME', type: 'maven'
+name: 'GIT_HOME', type: 'git'
+}
+    stage('check out') {
+                          steps {
+    git branch: 'master',url: 'https://github.com/niya26/Jenkins-test/'
+                          }
+                      }
     stages {
-         stage ('SCM checkout') {
-
-            steps {
-                git 'https://github.com/niya26/Jenkins-test/'
-                }
-            }
         stage ('Compile Stage') {
 
             steps {
-               
-                    sh 'mvn clean compile'
-               
+                withMaven(maven : 'MAVEN_HOME') {
+                    sh 'mvn -f amrld/pom.xml clean compile'
+                }
             }
         }
 
         stage ('Testing Stage') {
 
             steps {
-               
-                    sh 'mvn test'
-                
+                withMaven(maven : 'MAVEN_HOME') {
+                    sh 'mvn -f amrld/pom.xml test'
+                }
             }
         }
 
 
         stage ('Deployment Stage') {
             steps {
-                
-                    sh 'mvn deploy'
+                withMaven(maven : 'MAVEN_HOME') {
+                    sh 'mvn -f amrld/pom.xml deploy'
+                }
             }
         }
     }
