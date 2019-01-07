@@ -1,8 +1,8 @@
 pipeline {
 tools {
-name: 'JAVA_HOME', type: 'jdk'
-name: 'MAVEN_HOME', type: 'maven'
-name: 'GIT_HOME', type: 'git'
+maven 'M3' 
+        jdk 'jdk8'
+
 }
     stage('check out') {
                           steps {
